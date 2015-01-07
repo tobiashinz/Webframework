@@ -1,0 +1,12 @@
+# OS or Editor folders
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+
+# SASS and build stuff
+.sass-cache/
+dist/
+/index.html
+
+# NODE
+node_modules
