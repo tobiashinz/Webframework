@@ -1,0 +1,17 @@
+/*------------------------------------*\
+    EXAMPLE.SCSS
+\*------------------------------------*/
+/**
+ * Example of how to use
+ */
+.sprite {
+    &--rate--green {
+        @include sprite($rate--green);
+    }
+    &--rate--yellow {
+        @include sprite($rate--yellow);
+    }
+    &--rate--red {
+        @include sprite($rate--red);
+    }
+}

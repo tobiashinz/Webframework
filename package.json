@@ -6,11 +6,13 @@
   "license": "MIT",
   "dependencies": {
     "critical": "^0.5.1",
+    "css-sprite": "^0.9.0",
     "gulp": "^3.8.10",
     "gulp-add-src": "^0.2.0",
     "gulp-autoprefixer": "^2.0.0",
     "gulp-concat": "^2.4.3",
     "gulp-cssmin": "^0.1.6",
+    "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.1.0",
     "gulp-jshint": "^1.9.0",
     "gulp-livereload": "^3.2.0",

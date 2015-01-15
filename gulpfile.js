@@ -11,7 +11,9 @@ var gulp         = require('gulp'),
     livereload   = require('gulp-livereload'),
     imagemin     = require('gulp-imagemin'),
     order        = require("gulp-order"),
-    critical     = require("critical");
+    critical     = require("critical"),
+    sprite       = require("css-sprite").stream,
+    gulpif       = require('gulp-if');
 
 gulp.task('sass', function() {
     gulp.src('./css/screen.scss')
@@ -63,6 +65,18 @@ gulp.task('critical', ['sass', 'copystyles'], function () {
         height: 480,
         minify: true
     });
+});
+
+gulp.task('sprites', function () {
+  return gulp.src('./images/sprites/*.png')
+    .pipe(sprite({
+      name: 'sprite',
+      style: '_sprite.scss',
+      cssPath: '../images',
+      prefix: 'sprite',
+      processor: 'scss'
+    }))
+    .pipe(gulpif('*.png', gulp.dest('./dist/images/'), gulp.dest('./css/ui/')))
 });
 
 gulp.task('watch', function() {
