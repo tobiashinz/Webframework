@@ -83,7 +83,21 @@
 .soft-half--ends     { padding-top:   $half-spacing-unit!important; padding-bottom:$half-spacing-unit!important; }
 .soft-half--sides    { padding-right: $half-spacing-unit!important; padding-left:  $half-spacing-unit!important; }
 
-.hard           { padding:       0!important; }
+@mixin hard{
+    padding: 0 !important;
+}
+.hard{
+    @include hard;
+}
+@if $responsive{
+    @each $state in palm, lap, lap-and-up, portable, desk, desk-wide{
+        @include media-query(#{$state}){
+            .hard--#{$state}{
+                @include hard;
+            }
+        }
+    }
+}
 .hard--top      { padding-top:   0!important; }
 .hard--right    { padding-right: 0!important; }
 .hard--bottom   { padding-bottom:0!important; }
