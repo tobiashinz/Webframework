@@ -204,7 +204,7 @@
     display: block;
 }
 @mixin hidden {
-    display: none
+    display: none !important;
 }
 .hidden{
     @include hidden;
