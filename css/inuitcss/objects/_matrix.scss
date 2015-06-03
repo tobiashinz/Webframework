@@ -51,6 +51,9 @@
  * Demo: jsfiddle.net/inuitcss/Y2zrU
  *
  */
+@mixin fullwidth{
+    width:100%;
+}
 .multi-list{
     list-style:none;
     margin-left:0;
@@ -65,6 +68,9 @@
      * Apply these classes alongside the `.matrix` or `.multi-list` classes on
      * lists to determine how wide their columns are.
      */
+    .one-col > li{
+        @include fullwidth;
+    }
     .two-cols > li{
         width:50%;
     }
@@ -83,7 +89,16 @@
      */
     .matrix > .all-cols,
     .multi-list > .all-cols{
-        width:100%;
+        @include fullwidth;
     }
+    @if $responsive{
+      @each $state in palm, lap, lap-and-up, portable, desk, desk-wide{
+          @include media-query(#{$state}){
+              .one-col--#{$state} > li{
+                  @include fullwidth;
+              }
+          }
+      }
+  }
 
 }//endif
