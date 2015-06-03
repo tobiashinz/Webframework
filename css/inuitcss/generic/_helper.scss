@@ -196,3 +196,28 @@
         }
     }
 }
+
+/**
+ * Show and hide specific parts in responsive environments
+ */
+@mixin show{
+    display: block;
+}
+@mixin hidden {
+    display: none
+}
+.hidden{
+    @include hidden;
+}
+@if $responsive{
+    @each $state in palm, lap, lap-and-up, portable, desk, desk-wide{
+        @include media-query(#{$state}){
+            .hidden--#{$state}{
+                @include hidden;
+            }
+            .show--#{$state}{
+                @include show;
+            }
+        }
+    }
+}
