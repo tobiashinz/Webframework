@@ -6,13 +6,13 @@ var gulp         = require('gulp'),
     jshint       = require('gulp-jshint'),
     concat       = require('gulp-concat'),
     uglify       = require('gulp-uglify'),
-    addsrc       = require('gulp-add-src'),
     watch        = require('gulp-watch'),
     livereload   = require('gulp-livereload'),
     imagemin     = require('gulp-imagemin'),
     order        = require("gulp-order"),
     critical     = require("critical"),
-    sprite       = require("css-sprite").stream,
+    sprity       = require('sprity'),
+    addsrc       = require('gulp-add-src'),
     gulpif       = require('gulp-if');
 
 gulp.task('sass', function() {
@@ -28,9 +28,9 @@ gulp.task('js', function() {
     gulp.src('./js/scripts.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
-        .pipe(addsrc('./js/_libs/*.js'))
+        .pipe(addsrc('./bower_components/jquery/dist/jquery.js'))
         .pipe(order([
-                'js/_libs/jquery-1.11.3.js',
+                'bower_components/jquery/dist/jquery.js',
                 'js/scripts.js'
             ], { base: './' }))
         .pipe(concat('scripts.min.js'))
@@ -55,27 +55,41 @@ gulp.task('copystyles', function () {
         .pipe(gulp.dest('./dist/css'));
 });
 
-gulp.task('critical', ['sass', 'copystyles'], function () {
+gulp.task('critical', function() {
     critical.generateInline({
         base: './',
-        src: 'index--dev.html',
-        dest: 'dist/css/screen.min.css',
-        htmlTarget: 'index.html',
-        width: 320,
-        height: 480,
+        inline: false,
+        src: 'http://localhost:8888',
+        css: ['dist/css/screen.min.css'],
+        styleTarget: 'dist/css/critical.css',
+        ignore: ['@font-face',/url\(/,/.icon/],
+        dimensions: [{
+            height: 640,
+            width: 320
+        }, {
+            height: 768,
+            width: 1024
+        }, {
+            height: 900,
+            width: 1200
+        }],
         minify: true
     });
 });
 
 gulp.task('sprites', function () {
-  return gulp.src('./images/sprites/*.png')
-    .pipe(sprite({
-      name: 'sprite',
-      style: '_sprite.scss',
-      cssPath: '../images',
-      prefix: 'sprite',
-      processor: 'scss'
-    }))
+    return sprity.src({
+        src: './images/sprites/*.{png,jpg}',
+        style: '_sprite.scss',
+        cssPath: '../images',
+        prefix: 'sprite',
+        'dimension': [{
+            ratio: 1, dpi: 72
+        }, {
+            ratio: 2, dpi: 192
+        }],
+        processor: 'sass', // make sure you have installed sprity-sass
+    })
     .pipe(gulpif('*.png', gulp.dest('./dist/images/'), gulp.dest('./css/ui/')))
 });
 

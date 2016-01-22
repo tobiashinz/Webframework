@@ -10,3 +10,7 @@ dist/
 
 # NODE
 node_modules
+npm-debug.log
+
+# BOWER
+bower_components

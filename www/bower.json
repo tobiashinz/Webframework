@@ -1,0 +1,20 @@
+{
+  "name": "Webframework",
+  "description": "For the Webframework",
+  "main": [
+    "js/scripts.js",
+    "scss/screen.scss"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ],
+  "authors": [
+    "Tobias Hinz <hallo@tobiashinz.de>"
+  ],
+  "dependencies": {
+    "jquery": "1.x"
+  }
+}

@@ -1,39 +1,38 @@
-$rate--green: -5px -5px 64px 64px;
-$rate--red: -5px -79px 64px 64px;
-$rate--yellow: -5px -153px 64px 64px;
-
+$rate--green: -0px -0px 36px 36px;
+$rate--red: -0px -36px 36px 36px;
+$rate--yellow: -0px -72px 36px 36px;
 @mixin sprite-width($sprite) {
   width: nth($sprite, 3);
 }
-
 @mixin sprite-height($sprite) {
   height: nth($sprite, 4);
 }
-
 @function sprite-width($sprite) {
   @return nth($sprite, 3);
 }
-
 @function sprite-height($sprite) {
   @return nth($sprite, 4);
 }
-
 @mixin sprite-position($sprite) {
   $sprite-offset-x: nth($sprite, 1);
   $sprite-offset-y: nth($sprite, 2);
-  background-position: $sprite-offset-x  $sprite-offset-y;
+  background-position: $sprite-offset-x $sprite-offset-y;
 }
-
-@mixin sprite($sprite) {
+@mixin sprite($sprite, $display: block) {
   @include sprite-position($sprite);
   background-repeat: no-repeat;
   overflow: hidden;
-  display: block;
+  display: $display;
   @include sprite-width($sprite);
   @include sprite-height($sprite);
 }
-
 .sprite {
-  background-image: url('../images/sprite.png');
+  background-image: url(../images/sprite.png);
 }
-
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .sprite {
+    background-image: url(../images/sprite@2x.png);
+    background-size: 36px 108px;
+  }
+}
