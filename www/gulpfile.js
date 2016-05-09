@@ -17,7 +17,7 @@ var gulp         = require('gulp'),
 
 gulp.task('sass', function() {
     gulp.src('./css/screen.scss')
-        .pipe(sass())
+        .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer("last 2 version", "ie 9", "ie 8"))
         .pipe(cssmin())
         .pipe(rename({suffix: '.min'}))
