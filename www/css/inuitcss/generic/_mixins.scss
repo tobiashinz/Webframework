@@ -326,3 +326,7 @@ $lap-end:               $desk-start - 1px;
     }
 
 }
+
+@mixin fullwidth{
+    width:100%;
+}
