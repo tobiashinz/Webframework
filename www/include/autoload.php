@@ -1,12 +1,25 @@
 <?php
 spl_autoload_register('webFrameworkAutoloader');
 
-function webFrameworkAutoloader($class){
+function webFrameworkAutoloader($className){
 
     $baseDir = str_replace("/include", "", dirname(__FILE__));
 
-    if (file_exists($baseDir. "/include/misc/" . $class . ".class.php")){
-        require_once $baseDir. "/include/misc/" . $class . ".class.php";
+    $className = ltrim($className, '\\');
+    $fileName  = '';
+    $namespace = '';
+    if ($lastNsPos = strrpos($className, '\\')) {
+        $namespace = substr($className, 0, $lastNsPos);
+        $className = substr($className, $lastNsPos + 1);
+        $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+
+        $fileName = $fileName . $className . ".class.php";
+    } else {
+        $fileName = $className . ".class.php";
     }
+    // $className = str_replace('_', DIRECTORY_SEPARATOR, $className);
+    $fileName = $baseDir. "/include/misc/" . $fileName;
+
+    require_once $fileName;
 }
 ?>
